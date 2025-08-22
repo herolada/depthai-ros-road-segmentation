@@ -17,6 +17,7 @@ namespace pipeline_gen {
 PipelineGenerator::PipelineGenerator() {
     pluginTypeMap = {{"RGB", "depthai_ros_driver::pipeline_gen::RGB"},
                      {"RGBD", "depthai_ros_driver::pipeline_gen::RGBD"},
+                     {"RGBDROADSEGMENTATION", "depthai_ros_driver::pipeline_gen::RGBDRoadSegmentation"},
                      {"RGBSTEREO", "depthai_ros_driver::pipeline_gen::RGBStereo"},
                      {"STEREO", "depthai_ros_driver::pipeline_gen::Stereo"},
                      {"DEPTH", "depthai_ros_driver::pipeline_gen::Depth"},
@@ -27,6 +28,7 @@ PipelineGenerator::PipelineGenerator() {
                      {"RGBTOF", "depthai_ros_driver::pipeline_gen::RGBToF"},
                      {"THERMAL", "depthai_ros_driver::pipeline_gen::Thermal"}};
     pipelineTypeMap = {{"RGB", PipelineType::RGB},
+                       {"RGBDROADSEGMENTATION", PipelineType::RGBDRoadSegmentation},
                        {"RGBD", PipelineType::RGBD},
                        {"RGBSTEREO", PipelineType::RGBStereo},
                        {"STEREO", PipelineType::Stereo},

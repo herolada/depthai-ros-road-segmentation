@@ -76,6 +76,24 @@ std::vector<std::unique_ptr<dai_nodes::BaseNode>> RGBD::createPipeline(std::shar
     daiNodes.push_back(std::move(stereo));
     return daiNodes;
 }
+
+std::vector<std::unique_ptr<dai_nodes::BaseNode>> RGBDRoadSegmentation::createPipeline(std::shared_ptr<rclcpp::Node> node,
+                                                                                std::shared_ptr<dai::Device> device,
+                                                                                std::shared_ptr<dai::Pipeline> pipeline,
+                                                                                const std::string& /*nnType*/) {
+    using namespace dai_nodes::sensor_helpers;
+
+    std::vector<std::unique_ptr<dai_nodes::BaseNode>> daiNodes;
+    auto rgb = std::make_unique<dai_nodes::SensorWrapper>(getNodeName(node, NodeNameEnum::RGB), node, pipeline, device, dai::CameraBoardSocket::CAM_A);
+    auto stereo = std::make_unique<dai_nodes::Stereo>(getNodeName(node, NodeNameEnum::Stereo), node, pipeline, device);
+    auto nn = createNN(node, pipeline, *rgb);
+
+    daiNodes.push_back(std::move(nn));
+    daiNodes.push_back(std::move(rgb));
+    daiNodes.push_back(std::move(stereo));
+    return daiNodes;
+}
+
 std::vector<std::unique_ptr<dai_nodes::BaseNode>> RGBStereo::createPipeline(std::shared_ptr<rclcpp::Node> node,
                                                                             std::shared_ptr<dai::Device> device,
                                                                             std::shared_ptr<dai::Pipeline> pipeline,
@@ -240,6 +258,8 @@ std::vector<std::unique_ptr<dai_nodes::BaseNode>> Thermal::createPipeline(std::s
 }  // namespace depthai_ros_driver
 
 #include <pluginlib/class_list_macros.hpp>
+
+PLUGINLIB_EXPORT_CLASS(depthai_ros_driver::pipeline_gen::RGBDRoadSegmentation, depthai_ros_driver::pipeline_gen::BasePipeline)
 
 PLUGINLIB_EXPORT_CLASS(depthai_ros_driver::pipeline_gen::RGB, depthai_ros_driver::pipeline_gen::BasePipeline)
 PLUGINLIB_EXPORT_CLASS(depthai_ros_driver::pipeline_gen::RGBD, depthai_ros_driver::pipeline_gen::BasePipeline)

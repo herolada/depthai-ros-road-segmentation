@@ -29,6 +29,9 @@ SpatialNNWrapper::SpatialNNWrapper(const std::string& daiNodeName,
         case param_handlers::nn::NNFamily::Segmentation: {
             throw(std::runtime_error("Segmentation not supported for spatial network!"));
         }
+        case param_handlers::nn::NNFamily::RoadSegmentation: {
+            throw(std::runtime_error("RoadSegmentation not supported for spatial network!"));
+        }
     }
 
     RCLCPP_DEBUG(node->get_logger(), "Base node %s created", daiNodeName.c_str());

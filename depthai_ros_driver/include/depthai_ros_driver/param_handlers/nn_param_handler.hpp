@@ -30,7 +30,7 @@ class Parameter;
 namespace depthai_ros_driver {
 namespace param_handlers {
 namespace nn {
-enum class NNFamily { Segmentation, Mobilenet, Yolo };
+enum class NNFamily { RoadSegmentation, Segmentation, Mobilenet, Yolo };
 }
 class NNParamHandler : public BaseParamHandler {
    public:

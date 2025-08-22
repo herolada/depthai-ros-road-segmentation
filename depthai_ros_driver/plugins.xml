@@ -1,4 +1,7 @@
 <library path="depthai_ros_driver">
+    <class type="depthai_ros_driver::pipeline_gen::RGBDRoadSegmentation" base_class_type="depthai_ros_driver::pipeline_gen::BasePipeline">
+        <description>RGBDRoadSegmentation Pipeline.</description>
+    </class>
     <class type="depthai_ros_driver::pipeline_gen::RGB" base_class_type="depthai_ros_driver::pipeline_gen::BasePipeline">
         <description>RGB Pipeline.</description>
     </class>

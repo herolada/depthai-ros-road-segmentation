@@ -19,6 +19,7 @@ namespace param_handlers {
 NNParamHandler::NNParamHandler(std::shared_ptr<rclcpp::Node> node, const std::string& name, const dai::CameraBoardSocket& socket)
     : BaseParamHandler(node, name) {
     nnFamilyMap = {
+        {"road_segmentation", nn::NNFamily::RoadSegmentation},
         {"segmentation", nn::NNFamily::Segmentation},
         {"mobilenet", nn::NNFamily::Mobilenet},
         {"YOLO", nn::NNFamily::Yolo},
@@ -37,6 +38,8 @@ nn::NNFamily NNParamHandler::getNNFamily() {
         nn_path = config_path + "segmentation.json";
     } else if(nn_path == "depthai_ros_driver/mobilenet") {
         nn_path = config_path + "mobilenet.json";
+    } else if(nn_path == "road_segmentation") {
+        nn_path = "/home/herolada/helhest_ws/src/enet.json";
     }
     auto final_path = declareAndLogParam<std::string>("i_nn_config_path", nn_path, true);
     using json = nlohmann::json;

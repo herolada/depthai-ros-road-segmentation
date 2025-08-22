@@ -5,6 +5,7 @@
 #include "depthai/pipeline/node/DetectionNetwork.hpp"
 #include "depthai_ros_driver/dai_nodes/nn/detection.hpp"
 #include "depthai_ros_driver/dai_nodes/nn/segmentation.hpp"
+#include "depthai_ros_driver/dai_nodes/nn/road_segmentation.hpp"
 #include "depthai_ros_driver/param_handlers/nn_param_handler.hpp"
 #include "rclcpp/node.hpp"
 
@@ -25,6 +26,10 @@ NNWrapper::NNWrapper(const std::string& daiNodeName,
         }
         case param_handlers::nn::NNFamily::Mobilenet: {
             nnNode = std::make_unique<dai_nodes::nn::Detection<dai::node::MobileNetDetectionNetwork>>(getName(), getROSNode(), pipeline, socket);
+            break;
+        }
+        case param_handlers::nn::NNFamily::RoadSegmentation: {
+            nnNode = std::make_unique<dai_nodes::nn::RoadSegmentation>(getName(), getROSNode(), pipeline, socket);
             break;
         }
         case param_handlers::nn::NNFamily::Segmentation: {
